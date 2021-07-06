@@ -99,8 +99,10 @@ export function provideConfig(){
 
   ],
   providers: [
-    {provide:authInterceptorProviders,
-      useFactory:provideConfig},
+    {
+      provide:authInterceptorProviders,
+      useFactory:provideConfig
+    },
       MessagingService,AsyncPipe,
       AngularFirestore,
       AngularFireStorage,
