@@ -1,6 +1,6 @@
 import { UserModule } from './user/user.module';
 import { HttpClientModule } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../environments/environment';
 
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -30,29 +30,25 @@ import { Package2DetailComponent } from './pages/causes/package2-detail/package2
 import { CausesDetailComponent } from './pages/causes/causes-detail/causes-detail.component';
 import { AngularFireStorageModule ,AngularFireStorage} from '@angular/fire/storage'
 import {AngularFireModule} from '@angular/fire';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { GoogleLoginProvider,AuthServiceConfig, FacebookLoginProvider, SocialLoginModule } from "angular4-social-login";
+import { SocketIoConfig } from 'ngx-socket-io';
+import { AuthServiceConfig, FacebookLoginProvider, SocialLoginModule } from "angular4-social-login";
 import { FacebookModule } from 'ng2-facebook-sdk';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
+
 import { AsyncPipe } from '@angular/common';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireAuthModule, AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestoreModule,AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireDatabase, AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { ChatModule } from '@progress/kendo-angular-conversational-ui';
 import { FcmPushService } from './service/fcm-push.service';
 import { ChatService } from './service/chat.service';
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
-let configs = new AuthServiceConfig([
-  // {
-  //   id: GoogleLoginProvider.PROVIDER_ID,
-  //   provider: new GoogleLoginProvider("Google-OAuth-Client-Id")
-  // },
-  {
-    id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider("1567123180016188")
-  }
-]);
+// let configs = new AuthServiceConfig([
+//   {
+//     id: FacebookLoginProvider.PROVIDER_ID,
+//     provider: new FacebookLoginProvider("1567123180016188")
+//   }
+// ]);
 export function provideConfig(){
   // return configs
 }
@@ -88,7 +84,7 @@ export function provideConfig(){
     ChatModule,
     // SocketIoModule.forRoot(config),
 
-    SocialLoginModule.initialize(configs),
+    //SocialLoginModule.initialize(configs),
     FacebookModule.forRoot(),
 
     AngularFireModule.initializeApp(environment.firebase),
