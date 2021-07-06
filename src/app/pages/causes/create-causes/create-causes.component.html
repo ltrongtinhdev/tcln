@@ -1,0 +1,363 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-sm-6 justify-content-center">
+      <div class="text-center">
+        <i class="fas fa-user-circle fa-7x"></i>
+      </div>
+      <div class="text-center mt-3">
+        <h3>Hỗ Trợ Người Nghèo</h3>
+      </div>
+      <div class="text-center">
+        <p>Gây Quỹ Hỗ Trợ Hoàn Cảnh Khó Khăn</p>
+      </div>
+    </div>
+    <div class="col-sm-6 justify-content-center">
+      <div class="text-center">
+        <i class="fas fa-utensils fa-7x"></i>
+      </div>
+      <div class="text-center mt-3">
+        <h3>Cơm Tình Thương</h3>
+      </div>
+      <div class="text-center">
+        <p>Gây Quỹ Hỗ Trợ Cơm Tình Thương</p>
+      </div>
+    </div>
+  </div>
+  <hr class="featurette-divider mt-5">
+</div>
+
+<div class="container">
+  <div>
+    <h2>Danh Sách Gói Đã Tạo</h2>
+  </div>
+  <table class="table table-striped table-hover">
+    <thead class="table-dark text-center">
+      <tr>
+        <th scope="col">Tên Gói</th>
+        <th scope="col">Họ và Tên Người Nhận</th>
+        <th scope="col">Số Tiền Hàng Tháng</th>
+        <th scope="col">Địa Chỉ</th>
+        <th scope="col">Xác Nhận</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <tr *ngFor="let package of package1List">
+        <td>{{package.title}}</td>
+        <td>{{package.person.lastName +" "+ package.person.firstName}}</td>
+
+        <td>{{package.target}} $/tháng</td>
+        <td>{{package.person.address}}</td>
+        <td>
+          <button class="btn btn-group" style="color: green;" *ngIf="package.confirm==='da xac thuc'" disabled><i
+              class="fas fa-check-circle "></i></button>
+          <button class="btn btn-group" *ngIf="package.confirm===''" disabled><i class="fas fa-spinner"></i></button>
+          <button class="btn btn-group" *ngIf="package.confirm==='da xoa'" disabled><i
+              class="fas fa-times-circle"></i></button>
+        </td>
+        <td>
+          <!-- <button class="btn btn-group" type="button" data-toggle="modal"
+          data-target="#exampleModalCenter"></button> -->
+          <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-toggle="modal" data-target="#ModalPackage1" (click)="onEdit(package)"><i
+              class="fas fa-address-card"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+</div>
+
+<div class="row align-items-center mt-5" id="row">
+  <div class="col-sm-6 justify-content-center" id="blocks">
+    <div>
+      <h2>Hỗ Trợ Người Nghèo</h2>
+    </div>
+    <div>
+      <p>Với một trái tim nhân hậu và một ý tưởng khả thi từ chính cuộc sống và trải nghiệm của bản thân, một chương trình gây quỹ do bạn tổ chức và kêu gọi sẽ mang lại niềm vui cho nhiều người gặp khó khăn và nhiều kỷ niệm cho bạn. </p>
+    </div>
+    <div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPackage1" (click)="resetForm()">Gây Quỹ</button>
+    </div>
+  </div>
+  <div class="col-sm-6 text-white showcase-img " style="background-image: url(../../../assets/123.jpg);">
+  </div>
+</div>
+
+<div class="row align-items-center " id="row">
+  <div class="col-sm-6 text-white showcase-img" style="background-image: url(../../../assets/100.jpg);">
+
+  </div>
+  <div class="col-sm-6 justify-content-center" id="blocks">
+    <div>
+      <h2>Cơm Tình Thương</h2>
+    </div>
+    <div>
+      <p>Hỗ trợ các trường hợp người nghèo bằng các suất ăn/uống giá rẻ qua các điểm bán hàng, các quán cơm v.v… Cung cấp các bữa ngon gồm các món nước như Phở, bún bò, hủ tiếu, mì gà v.v…. Hãy gây quỹ để ai củng có được bữa ăn, không có ai phải ở lại phía sau.</p>
+    </div>
+    <div>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalPackage2">Gây Quỹ</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Package1-->
+<div class="modal fade" id="ModalPackage1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Gây Quỹ Cho Hoàn Cảnh Khó Khăn</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formPackage1" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+
+            <div class="form-group col-sm">
+              <div class="form-row-12">
+                <h5>1.Chi Tiết Của Gói</h5>
+              </div>
+              <input formControlName="confirm" type="hidden" class="form-control" value="dang cho"/>
+              <div class="form-row">
+                <div class="form-group col-sm-10">
+                  <label>Tiêu Đề</label>
+                  <input formControlName="title" type="text" placeholder="Tiêu đề" class="form-control" required />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-10">
+                  <label>Mô Tả</label>
+                  <textarea formControlName="description" required class="form-control" placeholder="Mô tả"
+                    id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-10">
+                  <label>Mục Tiêu</label>
+                  <input formControlName="target" type="number" placeholder="Mục tiêu" class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-10">
+                  <label>Ngày Hết Hạn</label>
+                  <input formControlName="expirationDate" type="date" class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-10" >
+                  <label for="exampleFormControlFile1">File Chính Sách<br>
+                    (Sổ hộ nghèo, khu vực khó khăn...)</label>
+                  <input formControlName="accuracy" type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-sm" formGroupName="person">
+              <div class="form-row-12">
+                <h5>2.Chi Tiết Cá Nhân</h5>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-10">
+                  <label>Tên</label>
+                  <input formControlName="firstName" required type="text" placeholder="Tên"
+                    class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-10">
+                  <label>Họ</label>
+                  <input formControlName="lastName" required type="text" placeholder="Họ" class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-5">
+                  <label>Giới Tính</label>
+                  <div class="ml-2">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" formControlName="gender" type="radio"
+                        name="gender" id="inlineRadio1" value="Male" checked>
+                      <label class="form-check-label" for="inlineRadio1">Nam</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" formControlName="gender" type="radio"
+                        name="gender" id="inlineRadio2" value="Female">
+                      <label class="form-check-label" for="inlineRadio2">Nữ</label>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-10">
+                  <label>Ngày Sinh</label>
+                  <input formControlName="dob" type="date" class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-10">
+                  <label>Địa Chỉ</label>
+                  <input formControlName="address" type="text" placeholder="Địa chỉ" class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-10">
+                  <label>Hình Ảnh</label>
+                  <input formControlName="avatarUrl" required type="file" class="form-control-file"
+                    id="exampleFormControlFile1">
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </form>
+
+        <pre>{{ formPackage1.value | json }}</pre>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <button type="submit" [disabled]="!formPackage1.valid" class="btn btn-primary"
+          (click)="onSubmit()">Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Package2-->
+<div class="modal fade" id="ModalPackage2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Gây Quỹ Gói Cơm Tình Thương</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="resetForm()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formPackage2" (ngSubmit)="onSubmit2()">
+          <div class="form-row">
+
+            <div class="form-group col-sm-12">
+              <div class="form-row-12">
+                <h5>1.Chi Tiết Gói</h5>
+              </div>
+              <input formControlName="confirm" type="hidden" class="form-control" value="dang cho"/>
+              <div class="form-row">
+                <div class="form-group col-sm-5 ">
+                  <label>Tiêu Đề</label>
+                  <input formControlName="title" type="text" class="form-control" placeholder="Tiêu đề" required />
+                </div>
+                <div class="form-group col-sm-5 offset-1">
+                  <label>Mục Tiêu</label>
+                  <input formControlName="target" type="number" placeholder="Mục tiêu" class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-11 ">
+                  <label>Mô Tả</label>
+                  <textarea formControlName="description" required class="form-control" id="exampleFormControlTextarea1"
+                    placeholder="Mô tả" rows="3"></textarea>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-5 ">
+                  <label for="exampleFormControlFile1">File Chính Sách<br>
+                    (Sổ hộ nghèo, khu vực khó khăn...)</label>
+                  <input formControlName="accuracy" type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+              </div>
+
+            </div>
+            <div class="form-group col-sm-12" formGroupName="restaurant">
+              <div class="form-row-12">
+                <h5>2.Chi Tiết Quán Ăn</h5>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-5 ">
+                  <label>Tên Quán</label>
+                  <input formControlName="name" type="text" class="form-control" placeholder="Tên quán"
+                    required />
+                </div>
+                <div class="form-group col-sm-5 offset-1">
+                  <label>SĐT</label>
+                  <input formControlName="phoneNumber" type="number" placeholder="Số điện thoại" class="form-control" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-11 ">
+                  <label>Địa Chỉ</label>
+                  <textarea formControlName="address" type="text" placeholder="Địa chỉ" class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-sm-12" formArrayName="listPeople" >
+              <div class="form-row-12">
+                <h5>3.Chi Tiết Cá Nhân</h5>
+              </div>
+              <div class="form-group row" *ngFor="let c of listPeople().controls; index as i" [formGroupName]="i" >
+                <div class="col-sm-12" >
+                  <div class="form-row">
+                    <div class="form-group col-sm-5" >
+                      <label>Họ và Tên</label>
+                      <input formControlName="name" name="name" required type="text" placeholder="Họ và Tên"
+                        class="form-control" />
+                    </div>
+                    <div class="form-group col-sm-5 offset-1">
+                      <label>Ngày Sinh</label>
+                      <input formControlName="dob" name="dob" type="date" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-5">
+                      <label>Giới Tính</label>
+                      <div class="ml-2">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" formControlName="gender" type="radio"
+                            name="gender" id="inlineRadio1" value="Male" checked>
+                          <label class="form-check-label" for="inlineRadio1">Nam</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" formControlName="gender" type="radio"
+                            name="gender" id="inlineRadio2" value="Female">
+                          <label class="form-check-label" for="inlineRadio2">Nữ</label>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="form-group col-sm-5 offset-1">
+                      <label>Địa Chỉ</label>
+                      <input formControlName="address" type="text" placeholder="Địa chỉ" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-sm-5">
+                      <label>SĐT</label>
+                      <input formControlName="phoneNumber" type="text" placeholder="Số điện thoại"
+                        class="form-control" />
+                    </div>
+                    <div class="form-group col-sm-5 offset-1">
+                      <label>Email</label>
+                      <input formControlName="email" type="text" placeholder="email" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+
+                    <input  (change)="fileChange($event)"  type="file"  name="file" >
+                    <button  class="input-group-text upload"  (click)="upload()"  id="btnUpload">Upload</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <!-- <pre>{{ formPackage2.value | json }}</pre> -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm()">Đóng</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!formPackage2.valid"
+          (click)="onSubmit2()">Lưu</button>
+      </div>
+    </div>
+  </div>
+</div>

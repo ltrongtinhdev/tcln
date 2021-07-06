@@ -1,0 +1,150 @@
+
+<section id="counts" class="counts">
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+
+      <div class="col-lg-3 col-md-6">
+        <div class="count-box">
+          <i class="far fa-smile"></i>
+          <span data-toggle="counter-up">232</span>
+          <p>Thành Viên</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+        <div class="count-box">
+          <i class="fas fa-clipboard-check"></i>
+          <span data-toggle="counter-up">521</span>
+          <p>Dự Án</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+        <div class="count-box">
+          <i class="fas fa-dollar-sign"></i>
+          <span data-toggle="counter-up">100,463$</span>
+          <p>Tổng Tiền Khuyên Góp</p>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+        <div class="count-box">
+          <i class="fas fa-hands-helping"></i>
+          <span data-toggle="counter-up">500</span>
+          <p>Tình Nguyện Viên</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section><!-- End Counts Section -->
+
+<div class="container marketing my-5">
+  <div class="row featurette my-5"  *ngFor="let package1 of package1List">
+    <div class="col-md-7" data-aos="fade-up-right">
+      <p id="up">Dự Án Quan Trọng</p>
+      <a (click)="causeDetails(package1._id)"><h3>{{package1.title}}</h3></a>
+      <!-- <p id="demo"></p> -->
+      <div class="text-center">
+        <button class="btn btn-danger text-center"  disabled id="demo"></button>
+      </div>
+
+        <div class="row mt-5">
+        <div class="col-lg-3">
+          <label>Cần Huy Động</label>
+          <h5 id="h5"> ${{package1.target}} </h5>
+        </div>
+        <div class="col-lg-3 ">
+          <label>Đã Góp Được</label>
+          <h5 id="h5"> ${{package1.raised}} </h5>
+        </div>
+        <div class="col-lg-6">
+          <br>
+          <a data-toggle="tab" role="tab"  ><button  class="btn btn-outline-danger mt-3"
+            routerLinkActive="router-link-active" (click)="donateP(package1._id)">Quyên Góp</button></a>
+        </div>
+      </div>
+      <div class="progress my-3">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{'width.%':(package1.raised/package1.target)*100}">{{lamtron((package1.raised/package1.target)*100)}}%</div>
+      </div>
+    </div>
+
+    <div class="col-md-5" data-aos="fade-left">
+      <img src={{package1.person.avatarUrl}} class="rounded mx-auto d-block bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" alt="..." width="500" height="500"
+      preserveAspectRatio="xMidYMid slice" focusable="false" role="img" >
+    </div>
+
+  </div>
+  <hr>
+</div>
+
+<div class="container mt-5" id="producttype" data-aos="zoom-in-down">
+  <div class="row text-center my-3">
+    <div class="col-lg-12">
+      <h4>Chúng tôi làm việc cho
+      </h4>
+      <h1>
+        Chúng tôi phục vụ cho mọi người</h1>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-lg-4">
+      <div class="icon text-danger"><i class="fas fa-book-open fa-7x"></i></div>
+
+      <h2>Dự Án Xây Dựng</h2>
+      <p class="text-secondary">---Comming Soon---</p>
+      <p><a class="btn btn-danger" href="#" role="button">Xem Chi Tiết &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+    <div class="col-lg-4">
+      <div class="icon text-danger"><i class="fas fa-user-circle fa-7x"></i></div>
+
+      <h2>Hỗ Trợ Người Nghèo</h2>
+      <p class="text-secondary">Đã có rất nhiều nhóm từ thiện, các nhà hảo tâm thường xuyên giúp đỡ các cá nhân nghèo.
+            Và chúng ta, quỹ Từ thiện Tình thương cũng góp vào chút ít. Chúng ta không kỳ vọng làm được nhiều nhưng thà làm được chút ít vẫn hơn là chẳng làm gì cả.
+            Dự án đang dần dần xây dựng đội ngũ Tình Nguyện Viên gắn bó túc trực tại bệnh viện để trợ giúp đỡ cho những cá nhân nghèo. Quy trình, tiêu chí hỗ trợ v.v… ngày càng hoàn thiện với nỗ lực cao nhất.
+      </p>
+      <p><a class="btn btn-danger" (click)="causesP()" role="button">Xem Chi Tiết &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+    <div class="col-lg-4">
+      <div class="icon text-danger"><i class="fas fa-utensils fa-7x"></i></div>
+      <h2>Cơm Tình Thương</h2>
+      <p class="text-secondary">Chúng ta đã chứng kiến rất nhiều người nhập cư sống tiết kiệm, ăn sáng trễ một tí, buổi trưa nhiều khi nhịn ăn để chờ đến buổi chiều là có thể tiết kiệm một số tiền kha khá gởi về quê cho cha mẹ, cho chồng, cho vợ, cho con…Đạp xe mấy chục cây số mỗi ngày, ăn uống thiếu thốn, kham khổ…rất nhiều người mưu sinh cực nhọc đã chịu đựng như thế. Cũng có cư dân thành phố nhiều lúc lâm vào cảnh túng quẫn, cũng đã từng phải nhịn ăn như thế. Nhiều em sinh viên nghèo chắt chiu tiền ăn học rất cần đến suất ăn giá rẻ. Trong khi chúng ta thích thú trưởng thức bữa cơm trưa văn phòng trong tiếng nhạc du dương và không khí mát lạnh của máy điều hoà, rất có thể đang có nhiều người phải uống nước để quên đi cái đói.</p>
+      <p><a class="btn btn-danger" (click)="causesP()" role="button">Xem Chi Tiết &raquo;</a></p>
+    </div><!-- /.col-lg-4 -->
+  </div><!-- /.row -->
+</div>
+
+<hr class="featurette-divider mt-5">
+<div class="chatbotPopup" style="display: block; /* Hidden by default */
+position: fixed; /* Fixed/sticky position */
+bottom: 0; /* Place the button at the bottom of the page */
+right: 0;
+width: 400px;
+height: 400px;
+z-index: 99; /* Make sure it does not overlap */
+
+"  *ngIf="show">
+<kendo-chat
+        [messages]="feed | async"
+        [user]="user"
+        (sendMessage)="sendMessage($event)"
+      >
+      </kendo-chat>
+</div>
+<div style="width:100px">
+  <button (click)="show = !show" style="display: block; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 30px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: red; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    padding: 18px; /* Some padding */
+    border-radius: 50px; /* Rounded corners */
+    font-size: 12px;"  >Bot</button>
+</div>
+

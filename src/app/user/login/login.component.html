@@ -1,0 +1,86 @@
+<div class="container p-5">
+
+  <!-- Outer Row -->
+  <div class="row justify-content-center mt-5">
+
+    <div class="col-xl-10 col-lg-12 col-md-9">
+
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+          <div class="row">
+            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+            <div class="col-lg-6">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">Xin Chào!</h1>
+                </div>
+                <form class="user"   *ngIf="!isLoggedIn"
+                name="form"
+                (ngSubmit)="f.form.valid && onSubmit()"
+                #f="ngForm"
+                novalidate>
+                  <div class="form-group">
+                    <input #email="ngModel" name="email" [(ngModel)]="form.email" required type="email" class="form-control form-control-user"  placeholder="Email" required/>
+
+                   <label class="text-danger" *ngIf="email.errors?.email">Email phải được xác thực</label>
+                  </div>
+                  <div class="form-group">
+                    <input #password="ngModel" name="password" [(ngModel)]="form.password" type="password" class="form-control form-control-user"  placeholder="Password"/>
+                    <label class="alert alert-danger"
+                    role="alert"
+                    *ngIf="f.submitted && password.invalid">Ít nhất 6 ký tự.</label>
+                  </div>
+                  <div class="form-group">
+                    <div class="custom-control custom-checkbox small">
+                      <input type="checkbox" class="custom-control-input" id="customCheck">
+                      <label class="custom-control-label" for="customCheck">Lưu mật khẩu</label>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                  <button  class="btn btn-success btn-user btn-block"  >
+                    Đăng Nhập
+                  </button>
+                </div>
+
+                </form>
+                <div class="col-lg-12 mt-3 text-center">
+                  <button  class="btn btn-primary" style="background-color: #385998; border-color:#385998 ;" (click)="signInWithFB()" *ngIf="!isLoggedIn" >
+                    <i class="fab fa-facebook-f"> Đăng nhập Facebook</i>
+                  </button>
+                </div>
+                <div class="col-lg-12 mt-3 text-center">
+                  <button  class="btn btn-primary" style="background-color: #385998; border-color:#385998 ;" (click)="signInWithGmail()" *ngIf="!isLoggedIn" >
+                    <i class="fab fa-gmail-f"> Đăng nhập gmail</i>
+                  </button>
+                </div>
+                <div class="alert alert-success"*ngIf="isLoggedIn">
+                  Đã đăng nhập dưới quyền {{ roles }}.
+                </div>
+                <button  class="btn btn-success btn-user btn-block" *ngIf="isLoggedIn" routerLink="/home">
+                  Trang Chủ
+                </button>
+                <hr>
+                <div class="text-center">
+                  <a class="small" href="forgot-password.html">Quên Password?</a>
+                </div>
+                <br>
+                <button  class="btn btn-danger btn-user btn-block" *ngIf="isLoggedIn" (click)="logout()">
+                  Đăng Xuất
+                </button>
+                <a class="btn btn-primary btn-user btn-block" [routerLink]="['/user/register']">
+                  Đăng Ký
+                </a>
+                <br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+</div>

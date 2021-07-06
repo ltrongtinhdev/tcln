@@ -1,0 +1,18 @@
+#page-content-wrapper {
+  min-width: 100vw;
+}
+#wrapper {
+  display: flex;
+  align-items: stretch;
+  border-radius: 10px;
+
+}
+#page-content-wrapper {
+  min-width: 0;
+  width: 100%;
+
+  padding: 20px;
+  min-height: 100vh;
+  transition: all 0.3s;
+}
+ 

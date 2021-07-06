@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <!-- Post Content Column -->
+    <div class="col-lg-10" *ngIf="currentTutorial">
+
+      <!-- Title -->
+      <h1 class="mt-4" >{{currentTutorial.title}}</h1>
+      <h1 id="data"></h1>
+
+      <!-- Author -->
+      <p class="lead" style="font-size: 16px;">
+
+        <a href="#">Thời gian đăng bài: </a>
+        <span style="opacity: 0.6;">
+          ngày {{currentTutorial.createDate | date: 'dd/MM/yyyy'}} vào lúc {{currentTutorial.createDate | date:'hh:mm'}}
+        </span>
+      </p>
+      <hr>
+      <div class="row justify-content-lg-around">
+        <div class="col-auto">
+          <div class="row">
+            <label>Cần huy động:</label>
+          </div>
+          <div class="row">
+            <h5 id="money"> ${{currentTutorial.target}} </h5>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="row">
+            <label>Đã khuyên góp:</label>
+          </div>
+          <div class="row">
+            <h5 id="money"> ${{currentTutorial.raised}} </h5>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+    </div>
+
+  </div>
+</div>
+
+<div class="pt-5">
+  <div class="container row justify-content-lg-center">
+    <div class="col-lg-8 p-5" id="left">
+      <form class="form-group" [formGroup]="formCharity">
+        <div class="form-row">
+          <div class="form-group col">
+            <h4>1.Chọn giá trị bạn muốn donate</h4>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-lg-4">
+            <button class="test" id="btn1" (click)="selectDonate(25)" class="btn btn-outline-secondary" value="25">25$</button>
+          </div>
+          <div class="form-group col-lg-4">
+            <button id="btn1" (click)="selectDonate(50)" class="btn btn-outline-secondary" value="50">50$</button>
+          </div>
+          <div class="form-group col-lg-4">
+            <button id="btn1" (click)="selectDonate(80)" class="btn btn-outline-secondary" value="80">80$</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-lg-4">
+            <button id="btn1" (click)="selectDonate(150)" class="btn btn-outline-secondary" value="150">150$</button>
+          </div>
+          <div class="form-group col-lg-8">
+            <input class="form-control" formControlName="donate" [(ngModel)]="donate"
+              placeholder="Other" id="Other" />
+          </div>
+        </div>
+
+        <h4>2. Chọn hình thức thanh toán</h4>
+        <div class="form-row justify-content-center">
+          <div id="pp-pay-later-message"></div>
+          <!-- <button (click)="updateTutorial()"> -->
+          <div class="col" [hidden]="paidFor" id="paypal"></div>
+          <!-- </button> -->
+        </div>
+        <div class="fb-share-button" 
+        [attr.data-href]="currentURL" 
+        data-layout="button_count" 
+        data-size="small">
+        <a target="_blank" 
+        [attr.href]="_url" 
+        class="fb-xfbml-parse-ignore">Chia sẻ</a></div>
+
+
+
+      </form>
+
+    </div>
+  </div>
+</div>

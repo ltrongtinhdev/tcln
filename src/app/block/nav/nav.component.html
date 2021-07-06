@@ -1,0 +1,82 @@
+
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <a class="navbar-brand js-scroll-trigger" href="#"><i class="fas fa-hand-holding-heart"></i> PROFIT</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+      aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li routerLinkActive="active" class="nav-item">
+          <a routerLink="/home" class="nav-link" href="#">Trang Chủ</a>
+        </li>
+        <li routerLinkActive="active" class="nav-item">
+          <a routerLink="/causes" routerLinkActive="selected" class="nav-link">Nguyên Nhân</a>
+        </li>
+        <li routerLinkActive="active" class="nav-item" style="border-right: none;">
+          <a routerLink="/news" class="nav-link" href="#">Tin Tức</a>
+        </li>
+        <!-- <li class="nav-item">
+          <button class="btn btn-light dropdown-toggle text-dark" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Pages
+          </button>
+        </li> -->
+        <li routerLinkActive="active" class="nav-item" style="border-right: none;" *ngIf="showModeratorBoard">
+          <a routerLink="/createCauses" class="nav-link" >Gây Quỹ</a>
+        </li>
+        <li routerLinkActive="active" class="nav-item" *ngIf="showAdminBoard" style="border-right: none;">
+          <a routerLink="/admin/dashboard" class="nav-link" href="#">DashBoard</a>
+        </li>
+      </ul>
+      {{ message | async | json }}
+
+      <!-- <h1>{{(message|async)?.notification.title}}</h1>
+      <p>{{(message|async)?.notification.body}}</p> -->
+      <form class="form-inline mt-2 mt-md-0" [formGroup]>
+        <ul class="navbar-nav mr-auto">
+
+          <li routerLinkActive="active" class="nav-item active">
+            <button routerLink="/donate" class="btn btn-outline-warning border border mr-sm-2">Quyên Góp</button></li>
+          <li routerLinkActive="active" class="nav-item" *ngIf="!isLoggedIn">
+            <a [routerLink]="['/user/login']" class="nav-link"><i class="fas fa-sign-in-alt" ></i>Đăng Nhập</a>
+          </li>
+          <li routerLinkActive="active" class="nav-item" *ngIf="!isLoggedIn">
+            <a class="nav-link" [routerLink]="['/user/register']" routerLinkActive="router-link-active" ><i class="fas fa-user-plus"></i> Sign Up</a>
+          </li>
+          <li routerLinkActive="active" class="nav-item" *ngIf="showModeratorBoard || showAdminBoard || showUserBoard">
+            <a   class="nav-link" ><i class="fas fa-user-shield"></i> Xin chào {{ email }}</a>
+          </li>
+          <li routerLinkActive="active" class="nav-item" *ngIf="showModeratorBoard || showAdminBoard || showUserBoard">
+            <a [routerLink]="['/user/login']" (click)="logout()"  class="nav-link" ><i class="fas fa-sign-in-alt" ></i>Đăng Xuất</a>
+          </li>
+
+        </ul>
+      </form>
+    </div>
+  </nav>
+
+
+<header class="masthead">
+  <div class="container">
+      <div class="masthead-subheading">Chào Mừng Đến Với Profit!</div>
+      <div class="masthead-heading text-uppercase">Rất Vui Được Gặp Bạn</div>
+      <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Đóng Góp Ý Kiến</a>
+  </div>
+</header>
+
+<!-- <div class="card bg-light text-white" >
+  <img src="../../../assets/caseroul.jpg" class="card-img " alt="...">
+  <div class="card-img-overlay jumbotron p-5 p-md-5 text-white rounded bg-transparent row" id="row-image">
+    <div class="col-md-6 mt-3">
+      <h1 class="card-title" id="title1">Support A Causes<br />
+        You Care About</h1>
+      <p class="card-text" style="font-size: 20px; font:bold">At Charity United we believe that all children in the
+        world have the right to be<br>
+        cared for and the right to be protected</p>
+      <div class="mt-5">
+        <button class="btn btn-danger" id="btnJIU"><a style="color:white" href="#">Join In Us</a></button>
+      </div>
+    </div>
+  </div>
+</div> -->

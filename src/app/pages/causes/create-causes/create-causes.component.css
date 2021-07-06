@@ -1,0 +1,23 @@
+.container, #row{
+  font-family: 'Times New Roman', Times, serif;
+
+}
+#title1{
+  margin-top:150px;
+  font-weight:bold ;
+  font-size: 70px ;
+  color: rgb(0, 0, 0);
+}
+#blocks{
+  padding: 10%;
+}
+
+.showcase-img
+{
+    min-height: 30rem;
+    background-size: cover;
+}
+
+h3,h5,h2, label{
+  font-family: 'Times New Roman', Times, serif;
+}

@@ -1,0 +1,187 @@
+<div class="container row justify-content-center text-justify">
+  <ul class="nav nav-pills my-5 col-auto" role="tablist">
+    <li class="active nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#home">Chi Tiết Bài Viết</a></li>
+    <li class="nav-item"><a class="nav-link " data-toggle="tab" role="tab"(click)="donateP()">Khuyên Góp</a></li>
+    <li class="nav-item"><a class="nav-link " data-toggle="modal" data-target="#tinhnguyenModal">Tình Nguyện Tham Gia Tới Nơi Quyên Góp</a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#menu2">Bình Luận</a></li>
+    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu3">Liên Hệ</a></li>
+  </ul>
+</div>
+<div class="container py-3" class="tab-content">
+  <div class="mb-3" id="home" class="tab-pane fade in active" data-aos="zoom-in-down">
+    <div class="row justify-content-center">
+      <!-- Post Content Column -->
+      <div class="col-lg-8" *ngIf="currentTutorial">
+        <!-- Title -->
+        <h1 class="mt-4">{{ currentTutorial.title }}</h1>
+
+        <!-- Author -->
+        <p class="lead">
+          Nguời Đăng:
+          <a href="#">{{currentTutorial.idUser.fullName}}</a>
+        </p>
+
+        <hr />
+
+        <!-- Date/Time -->
+        <p>{{currentTutorial.createDate}}</p>
+
+        <hr />
+
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="{{ currentTutorial.imageUrl }}" alt="" />
+
+        <hr />
+
+        <div class="row justify-content-lg-around">
+          <div class="col-auto">
+            <div class="row">
+              <label>Cần Huy Động:</label>
+            </div>
+            <div class="row">
+              <h5 id="money">${{ currentTutorial.target }}</h5>
+            </div>
+          </div>
+          <div class="col-auto">
+            <div class="row">
+              <label>Đã Góp Được:</label>
+            </div>
+
+            <div class="row">
+              <h5 id="money">${{ currentTutorial.raised }}</h5>
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <!-- Post Content -->
+        <p class="lead text-justify">{{currentTutorial.description}}</p>
+
+        <hr />
+
+
+      </div>
+    </div>
+  </div>
+  <div class="container my-3" id="menu2" class="tab-pane fade">
+    <div class="row justify-content-center">
+      <div class="col-lg-8" >
+        <div class="card my-4" >
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+            <form [formGroup]="commentForm" (ngSubmit)="onSubmitComment()">
+              <input type="hidden"
+                  class="form-control"
+                  id="likes"
+                  formGroupName="likes" name="likes" class="form-control" value="0"/>
+              <div class="form-group" >
+                <textarea class="form-control" rows="3" formControlName="content"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+        <!-- Single Comment -->
+        <div class="media mb-4 " *ngFor="let cmt of commentList |paginate:{itemsPerPage:5, currentPage:p};" >
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="mt-0">{{cmt.email}}</h5>
+              </div>
+              <div class="col text-right">
+                <p class="mt-0 text-secondary">{{cmt.createdDate}}</p>
+              </div>
+            </div >
+            {{cmt.content}}
+            <hr/>
+          </div>
+
+        </div>
+        <div class="row justify-content-center">
+          <pagination-controls class="col-auto" (pageChange)="p = $event"></pagination-controls>
+        </div>
+
+        <!-- Comment with nested comments -->
+
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="tinhnguyenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Đăng ký tình nguyện</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" >
+          <form [formGroup]="tinhnguyenForm"  >
+            <div class="form-row">
+              <div class="form-group col-sm-10">
+                <label>Họ và tên*:</label>
+                <input formControlName="hovaten"  type="text" class="form-control" required/>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-sm-10">
+                <label>Số điện thoại*:</label>
+                <input formControlName="sdt"  type="text" class="form-control" required/>
+              </div>
+            </div>
+          </form>
+          <!-- <pre>{{ form.value | json }}</pre> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+          <button class="btn btn-success" type="submit"(click)="DK()" >Đăng ký</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pt-5">
+  <div class="container row justify-content-lg-center">
+    <div class="col-lg-8 p-5" id="left">
+      <form class="form-group" [formGroup]="formCharity">
+        <div class="form-row">
+          <div class="form-group col">
+            <h4>1.Chọn giá trị bạn muốn donate</h4>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-lg-4">
+            <button class="test" id="btn1" (click)="selectDonate(25)" class="btn btn-outline-secondary" value="25">25$</button>
+          </div>
+          <div class="form-group col-lg-4">
+            <button id="btn1" (click)="selectDonate(50)" class="btn btn-outline-secondary" value="50">50$</button>
+          </div>
+          <div class="form-group col-lg-4">
+            <button id="btn1" (click)="selectDonate(80)" class="btn btn-outline-secondary" value="80">80$</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-lg-4">
+            <button id="btn1" (click)="selectDonate(150)" class="btn btn-outline-secondary" value="150">150$</button>
+          </div>
+          <div class="form-group col-lg-8">
+            <input class="form-control" formControlName="donate" [(ngModel)]="donate"
+              placeholder="Other" id="Other" />
+          </div>
+        </div>
+
+        <h4>2. Chọn hình thức thanh toán</h4>
+        <div class="form-row justify-content-center">
+          <div id="pp-pay-later-message"></div>
+          <!-- <button (click)="updateTutorial()"> -->
+          <div class="col" [hidden]="paidFor" id="paypal"></div>
+          <!-- </button> -->
+        </div>
+
+
+      </form>
+
+    </div>
+  </div>
+</div>

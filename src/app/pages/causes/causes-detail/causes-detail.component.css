@@ -1,0 +1,54 @@
+.container{
+  font-family: 'Times New Roman', Times, serif;
+
+  margin: auto;
+}
+#left{
+  background-color: rgb(243, 243, 243);
+  border-radius: 5px;
+}
+
+#btn1{
+  padding: 11px 45px;
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+}
+
+#Other{
+  padding: 14px 30px;
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+}
+#input{
+  height: 60%;
+  margin-bottom: 10px;
+}
+
+.pt-5{
+  background-size: cover;
+  image-rendering: pixelated;
+  object-fit: cover;
+  background-position: center center;
+}
+#money{
+  background-color: rgb(243, 196, 196);
+  height: 50px;
+  width: 100px;
+  text-align: center;
+  padding-top:15px ;
+  color:rgb(141, 22, 22);
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+

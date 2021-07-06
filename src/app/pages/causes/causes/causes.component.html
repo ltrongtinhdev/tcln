@@ -1,0 +1,246 @@
+<div class="container">
+  <div class="my-5">
+    <h1 id="title">
+      Họ đang chờ đợi sự giúp đỡ của bạn. Hãy quyên góp để tham gia với chúng
+      tôi.
+    </h1>
+  </div>
+  <section id="featured-services" class="featured-services">
+    <div class="container" data-aos="fade-up">
+      <div class="row justify-content-around text-center">
+        <div class="col-lg-4 pt-2 mx-2 icon-box" id="package">
+          <div class="icon"><i class="fas fa-user-circle fa-7x"></i></div>
+          <h2>Gói cá nhân</h2>
+          <p>
+            Đã có rất nhiều nhóm từ thiện, các nhà hảo tâm thường xuyên giúp đỡ
+            các cá nhân nghèo. Và chúng ta, quỹ Từ thiện Tình thương cũng góp
+            vào chút ít. Chúng ta không kỳ vọng làm được nhiều nhưng thà làm
+            được chút ít vẫn hơn là chẳng làm gì cả. Dự án đang dần dần xây dựng
+            đội ngũ Tình Nguyện Viên gắn bó túc trực tại bệnh viện để trợ giúp
+            đỡ cho những cá nhân nghèo. Quy trình, tiêu chí hỗ trợ v.v… ngày
+            càng hoàn thiện với nỗ lực cao nhất.
+          </p>
+          <!-- <p><a id="a" class="btn btn-danger" role="button" (click)="onToggle()">Xem Chi Tiết &raquo;</a></p> -->
+        </div>
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-4 pt-2 icon-box" id="package">
+          <div class="icon"><i class="fas fa-book-open fa-7x"></i></div>
+          <h2>Cơm Tình Thương</h2>
+          <p>
+            Chúng ta đã chứng kiến rất nhiều người nhập cư sống tiết kiệm, ăn
+            sáng trễ một tí, buổi trưa nhiều khi nhịn ăn để chờ đến buổi chiều
+            là có thể tiết kiệm một số tiền kha khá gởi về quê cho cha mẹ, cho
+            chồng, cho vợ, cho con…Đạp xe mấy chục cây số mỗi ngày, ăn uống
+            thiếu thốn, kham khổ…rất nhiều người mưu sinh cực nhọc đã chịu đựng
+            như thế. Cũng có cư dân thành phố nhiều lúc lâm vào cảnh túng quẫn,
+            cũng đã từng phải nhịn ăn như thế. Nhiều em sinh viên nghèo chắt
+            chiu tiền ăn học rất cần đến suất ăn giá rẻ. Trong khi chúng ta
+            thích thú trưởng thức bữa cơm trưa văn phòng trong tiếng nhạc du
+            dương và không khí mát lạnh của máy điều hoà, rất có thể đang có
+            nhiều người phải uống nước để quên đi cái đói.
+          </p>
+          <!-- <p><a id="a" class="btn btn-danger" href="#" role="button">Xem Chi Tiết &raquo;</a></p> -->
+        </div>
+        <!-- /.col-lg-4 -->
+      </div>
+      <!-- /.row -->
+    </div>
+  </section>
+
+  <form class="my-5">
+    <div class=""></div>
+    <div class="form-group row">
+      <div class="col-sm-6 input-group">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-danger" disabled type="button">
+            Tìm Kiếm
+          </button>
+        </div>
+        <input
+          class="form-control"
+          name="title"
+          [(ngModel)]="title"
+          (ngModelChange)="Search()"
+          id="inputGroupSelect03"
+        />
+      </div>
+    </div>
+    <div>
+      <h2 *ngIf="isShow">Goi: {{ goi }}</h2>
+    </div>
+  </form>
+  <div>
+    <h3 class="text-center text-secondary">Các Hoàn Cảnh Khó Khăn</h3>
+
+    <hr />
+  </div>
+  <div class="row mt-5" >
+    <div
+      class="col-lg-4 my-2"
+      data-aos="fade-right"
+      *ngFor="
+        let package1 of package1List
+          | paginate: { itemsPerPage: 3, currentPage: p }
+      "
+    >
+      <div class="card-group">
+        <img class="card-img-top p-1" src="{{ package1.person.avatarUrl }}" />
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12 text-left">
+              <a
+                id="chitiet"
+                data-toggle="tab"
+                role="tab"
+                href="#home"
+                routerLink="package1/{{ package1._id }}"
+                ><h5 class="text-justify">{{ package1.title }}</h5></a
+              >
+            </div>
+          </div>
+          <div class="row">
+            <div class="text-center col-lg-12">
+              <button class="btn btn-danger text-center" disabled *ngIf="package1.expirationDate!=null" id="demo1" >{{package1.expirationDate}}</button>
+            </div>
+          </div>
+          <div class="mb-0">
+            <div class="row my-3">
+              <div class="col-5">
+                <p>Cần Huy Động:</p>
+                <h5>${{ package1.target }}</h5>
+              </div>
+              <div class="col-5 offset-2">
+                <p>Đã Góp Được:</p>
+                <h5>${{ package1.raised }}</h5>
+              </div>
+            </div>
+            <div class="progress my-3">
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                role="progressbar"
+                aria-valuenow="75"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                [ngStyle]="{
+                  'width.%': (package1.raised / package1.target) * 100
+                }"
+              >
+                {{ lamtron((package1.raised / package1.target) * 100) }}%
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-lg-6">
+                <a data-toggle="tab" role="tab" href="#menu1"
+                  ><button
+                    class="btn btn-outline-danger"
+                    (click)="donateP(package1._id)"
+                    routerLinkActive="router-link-active"
+                  >
+                    Quyên Góp
+                  </button></a
+                >
+              </div>
+              <div class="col-lg-6" >
+                <a data-toggle="tab" role="tab" href="#menu1"
+                  ><button
+                    class="btn btn-outline-secondary" (click)="follow(package1)"
+                  >
+                  Follow
+                  </button>
+                  </a>
+                  <p hidden>{{package1.followers}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <pagination-controls
+      class="col-auto"
+      (pageChange)="p = $event"
+    ></pagination-controls>
+  </div>
+
+  <div class="mt-5">
+    <h3 class="text-center text-secondary">Cơm Tình Thương</h3>
+    <hr />
+  </div>
+  <div class="row mt-5">
+    <div
+      class="col-lg-4 my-2"
+      data-aos="fade-left"
+      *ngFor="
+        let package2 of package2List
+          | paginate: { itemsPerPage: 3, currentPage: p }
+      "
+    >
+      <div class="card-group">
+        <img class="card-img-top p-1" src="{{ package2.imageUrl }}" />
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12 text-left">
+              <h5 id="title2">{{ package2.title }}</h5>
+              <p class="text-dark">{{ package2.restaurant.address }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <!-- <div class="text-center">
+              <button class="btn btn-danger text-center" disabled id="demo">{{donghodemnguoc(package2.expirationDate|date:'dd/MM/yyyy') }}</button>
+            </div> -->
+          </div>
+          <div class="row my-3">
+            <div class="col-5">
+              <p>Cần Huy Động:</p>
+              <h5>${{ package2.target }}</h5>
+            </div>
+            <div class="col-5 offset-2">
+              <p>Đã Góp Được:</p>
+              <h5>${{ package2.raised }}</h5>
+            </div>
+          </div>
+          <div class="progress my-3">
+            <div
+              class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+              role="progressbar"
+              [ngStyle]="{
+                'width.%': (package2.raised / package2.target) * 100
+              }"
+              aria-valuenow="75"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              {{ lamtron((package2.raised / package2.target) * 100) }}%
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-6">
+              <button
+                class="btn btn-outline-danger"
+                routerLink="package2/{{ package2._id }}"
+                routerLinkActive="router-link-active"
+              >
+                Quyên Góp
+              </button>
+            </div>
+            <div class="col-lg-6">
+              <button
+                class="btn btn-outline-secondary"
+              >
+                Follow
+              </button>
+          </div>
+        </div>
+      </div>
+      <hr />
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <pagination-controls
+      class="col-auto"
+      (pageChange)="p = $event"
+    ></pagination-controls>
+  </div>
+</div>

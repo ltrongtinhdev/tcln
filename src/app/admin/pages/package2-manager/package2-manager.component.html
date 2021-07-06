@@ -1,0 +1,301 @@
+<div class="container">
+  <div class="card my-3 shadow-lg p-2 mb-5 bg-white rounded">
+    <div class="card-header" id="bordercard">
+      <div class="row justify-content-between">
+        <div class="col-auto">
+          <h1>Gói Hỗ Trợ Cơm Cho Người Nghèo</h1>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <form>
+        <div class="form-row">
+          <div class="form-group col-auto my-1">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">Chọn lọc</label>
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+              <option selected>Chọn...</option>
+              <option value="1">Tiêu Đề </option>
+              <option value="2">Họ Và Tên</option>
+
+            </select>
+
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-lg-6 my-1">
+            <label class="mr-sm-2" for="inlineFormCustomSelect">Tìm Kiếm</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary " type="button">Search</button>
+              </div>
+              <input type="text" name="firstName" [(ngModel)]="title" (ngModelChange)="Search()" class="form-control">
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <hr>
+      <table class="table table-sm table-striped table-hover">
+        <thead class="table-dark text-center">
+          <tr>
+            <th scope="col" (click)="sort('title')">Tên Gói &nbsp;<i class="fa fa-sort"></i></th>
+            <th scope="col" (click)="sort('target')">Tiền Hàng Tháng&nbsp;<i class="fa fa-sort"></i></th>
+            <th scope="col">Tên Quán</th>
+            <th scope="col">Địa Chỉ</th>
+            <th scope="col">SĐT</th>
+            <th scope="col">Xác Nhận</th>
+
+            <th></th>
+            <th></th>
+            <th></th>
+
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let package of package2List | orderBy:key:reverse |paginate:{itemsPerPage:5, currentPage:p};">
+            <td>{{package.title}}</td>
+            <td>{{package.target}}$/tháng</td>
+
+            <td>{{package.restaurant.name}} </td>
+            <td>{{package.restaurant.address}}</td>
+            <td>{{package.restaurant.phoneNumber}}</td>
+            <td>
+              <button class="btn btn-group" style="color: green;" *ngIf="package.confirm==='da xac thuc'" disabled><i
+                  class="fas fa-check-circle "></i></button>
+              <button class="btn btn-group" *ngIf="package.confirm===''" disabled><i
+                  class="fas fa-spinner"></i></button>
+              <button class="btn btn-group" *ngIf="package.confirm==='da xoa'" disabled><i
+                  class="fas fa-times-circle"></i></button>
+            </td>
+            <td>
+              <!-- <button class="btn btn-group" type="button" data-toggle="modal"
+              data-target="#exampleModalCenter"></button> -->
+              <button class="btn btn-primary" (click)="onEdit(package)" data-toggle="modal"
+                data-target="#ModalPackage2"><i class="fas fa-address-card"></i></button>
+            </td>
+            <td>
+              <div>
+                <button class="btn btn-warning" (click)="loadDSDN(package._id,package.title)" data-toggle="modal"
+                  data-target="#danhsachModal"><i class="fas fa-donate"></i></button>
+              </div>
+            </td>
+            <td>
+              <div>
+                <button class="btn btn-secondary" (click)="loadDSTN(package._id,package.title)" data-toggle="modal"
+                  data-target="#danhsachModal"><i class="fas fa-hands-helping"></i></button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+      <div class="row justify-content-center">
+        <pagination-controls class="col-auto" (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="ModalPackage2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Chỉnh Sửa Gói</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="editForm" (ngSubmit)="onSubmit(editForm)">
+            <div class="form-row">
+              <div class="form-group col-sm-12">
+                <div class="form-row-12">
+                  <h5>1.Chi Tiết Gói</h5>
+                </div>
+                <input formControlName="_id" type="text" class="form-control" hidden placeholder="_id" />
+
+                <div class="form-row">
+                  <div class="form-group col-sm-5 ">
+                    <label>Tiêu Đề</label>
+                    <input formControlName="title" type="text" class="form-control" placeholder="title" required />
+                  </div>
+                  <div class="form-group col-sm-5 offset-1">
+                    <label>Mục Tiêu</label>
+                    <input formControlName="target" type="number" placeholder="target" class="form-control" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-11 ">
+                    <label>Mô Tả</label>
+                    <textarea formControlName="description" required class="form-control"
+                      id="exampleFormControlTextarea1" placeholder="description" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-10">
+                    <label>Xác Thực</label>
+                    <div class="form-check ml-2">
+                      <input class="form-check-input" formControlName="confirm" type="radio" name="confirm"
+                        id="exampleRadios1" value="da xac thuc" checked>
+                      <label class="form-check-label" for="exampleRadios1">
+                        Đã Xác Thực
+                      </label>
+                    </div>
+                    <div class="form-check ml-2">
+                      <input class="form-check-input" formControlName="confirm" type="radio" name="confirm"
+                        id="exampleRadios2" value="dang cho">
+                      <label class="form-check-label" for="exampleRadios2">
+                        Chưa Xác Thực
+                      </label>
+                    </div>
+
+                    <div class="form-check ml-2">
+                      <input class="form-check-input" formControlName="confirm" type="radio" name="confirm"
+                        id="exampleRadios3" value="da xoa">
+                      <label class="form-check-label" for="exampleRadios4">
+                        Đã Xoá
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-5 ">
+                    <label for="exampleFormControlFile1">File Chính Sách<br>
+                      (Sổ hộ nghèo, Khu vực khó khăn...)</label>
+                    <input formControlName="accuracy" type="text" class="form-control-file"
+                      id="exampleFormControlFile1">
+                  </div>
+                </div>
+
+              </div>
+              <div class="form-group col-sm-12" formGroupName="restaurant">
+                <div class="form-row-12">
+                  <h5>2.Chi Tiết Quán</h5>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-5 ">
+                    <label>Tên Quán</label>
+                    <input formControlName="name" type="text" class="form-control" placeholder="name restaurant"
+                      required />
+                  </div>
+                  <div class="form-group col-sm-5 offset-1">
+                    <label>SĐT</label>
+                    <input formControlName="phoneNumber" type="number" placeholder="phone number"
+                      class="form-control" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-sm-11 ">
+                    <label>Địa Chỉ</label>
+                    <textarea formControlName="address" type="text" placeholder="address"
+                      class="form-control"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row-12">
+                <h5>3.Chi Tiết Cá Nhân</h5>
+              </div>
+              <!-- <table class="table table table-striped table-hover">
+                <thead class="table-dark text-center">
+                  <tr>
+                    <th scope="col">Họ và Tên</th>
+                    <th scope="col">Số Điện Thoại</th>
+                    <th scope="col">Email</th>
+
+                  </tr>
+                </thead>
+                <tbody class="text-center">
+                  <tr class="text-center"
+                    *ngFor="let item of danhsach | orderBy:key:reverse |paginate:{itemsPerPage:5, currentPage:p};">
+
+                    <td>{{item.name}}</td>
+                    <td>{{item.phoneNumber}} $</td>
+                    <td>{{item.email}} $</td>
+
+                  </tr>
+                </tbody>
+              </table> -->
+
+              <div class="form-row mt-5">
+                <div class="col-lg-12 justify-content-center">
+                <table class="table table-responsive-sm table-bordered table-hover">
+                  <tbody class="text-center">
+                    <tr *ngFor="let row of data">
+                      <!-- <thead class="table-dark text-center"> -->
+                      <td *ngFor="let cell of row">
+                        {{cell}}
+                      </td>
+                      <!-- </thead> -->
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+              </div>
+
+
+            </div>
+          </form>
+          <form method="POST" action="" enctype="multipart/form-data">
+            <input (change)="fileChange($event)" type="file" name="file">
+            <button class="input-group-text upload" (click)="upload()" id="btnUpload">Upload</button>
+          </form>
+
+          <!-- <pre>{{ editForm.value | json }}</pre> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+          <button type="submit" class="btn btn-primary" (click)="onSubmit(editForm)">Cập Nhật</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- --------------------------------------------------------------- -->
+
+  <div class="modal fade" id="danhsachModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Danh sách {{action}}</h3>
+
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h4 class="modal-title mb-3" style="color: rgb(149, 149, 224)">{{titl}}</h4>
+          <table class="table table table-striped table-hover">
+            <thead class="table-dark text-center">
+              <tr>
+                <th scope="col">Tên tài khoản</th>
+                <th scope="col">Số tiền ủng hộ</th>
+
+              </tr>
+            </thead>
+            <tbody class="text-center">
+              <tr class="text-center"
+                *ngFor="let item of danhsach | orderBy:key:reverse |paginate:{itemsPerPage:5, currentPage:p};">
+
+                <div *ngIf="item.style != 'donate'">
+                </div>
+                <td>{{item.username}}</td>
+
+                <td>{{item.donate}} $</td>
+
+
+
+              </tr>
+            </tbody>
+
+          </table>
+          <div class="row justify-content-center">
+            <pagination-controls class="col-auto" (pageChange)="p = $event"></pagination-controls>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

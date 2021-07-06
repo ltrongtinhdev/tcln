@@ -1,0 +1,21 @@
+#img{
+  height: auto;
+  width: auto;
+  background-size: 100% 100%;
+  background-image: url(../../../assets/ThinkstockPhotos668214842_256D8D6D6BEB0.jpg);
+  padding:10%;
+  display: block;
+}
+.container{
+  background-color: rgb(179, 28, 28);
+  height: auto;
+  width: 80%;
+  padding:5%;
+  opacity: 0.8;
+  font-family: 'Times New Roman', Times, serif;
+
+}
+h1,p,button{
+  color: white;
+}
+

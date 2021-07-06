@@ -1,0 +1,211 @@
+<section id="featured-services" class="featured-services my-4" >
+  <div class="container" data-aos="fade-up" *ngIf="showAdminBoard || showModeratorBoard || (showModeratorBoard &&showAdminBoard)">
+    <div class="row justify-content-around" >
+      <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-toggle="modal" data-target="#ModalNews1">
+        <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+          <div class="icon"><i class="fas fa-user-circle"></i></div>
+          <h4 class="title"><a href="">Hỗ Trợ Người Nghèo</a></h4>
+          <p class="description">Tạo bài viết về kết quả đã đạt được về gói mà bạn đã gây quỹ.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+        <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+          <div class="icon"><i class="fas fa-utensils"></i></div>
+          <h4 class="title"><a href="">Gạo Tình Thương</a></h4>
+          <p class="description">Hãy cho họ biết gói mà bạn gây quỹ đã giúp mọi người nghèo có được bữa ăn ngon</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+        <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+          <div class="icon"><i class="fas fa-book-open"></i></div>
+          <h4 class="title"><a href="">Project</a></h4>
+          <br>
+          <p class="description">------Comming Soon------</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<div class="container" >
+  <div class="row">
+    <div class="col-md-8">
+      <div>
+        <h3 class="text-right text-secondary">Tin Tức Về Các Hoàn Cảnh Khó Khăn</h3>
+        <hr>
+      </div>
+      <div class="row"   *ngFor="let post of postList|paginate:{itemsPerPage:3, currentPage:p};" data-aos="fade-right"
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine">
+        <div class="col-md-12">
+          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" id="baiviet">
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-primary">Hỗ trợ người nghèo</strong>
+              <h5 class="mb-0" >{{post.title}}</h5>
+              <div class="mb-1 text-muted">{{post.createdDate|date:'dd/MM/yyyy'}}</div>
+              <p class="card-text mb-auto text-secondary">{{post.description}}</p>
+              <a  class="stretched-link" routerLink="{{post._id}}">Đọc tiếp >></a>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+              <img class="bd-placeholder-img" width="300" height="300" src={{post.imageUrl}}
+                preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                <title>Placeholder</title>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center my-3">
+        <pagination-controls class="col-auto" (pageChange)="p = $event"></pagination-controls>
+      </div>
+      <div>
+        <h3 class="text-secondary">Tin Tức Về Cơm Tình Thương</h3>
+        <hr>
+      </div>
+      <div class="row"  *ngFor="let post of postList|paginate:{itemsPerPage:3, currentPage:p};" data-aos="fade-left"
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine">
+        <div class="col-md-12">
+          <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col-auto d-none d-lg-block">
+              <img class="bd-placeholder-img" width="300" height="300" src={{post.imageUrl}}
+                preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+                <title>Placeholder</title>
+            </div>
+            <div class="col p-4 d-flex flex-column position-static">
+              <strong class="d-inline-block mb-2 text-success">Gạo tình thương</strong>
+              <h5 class="mb-0" >{{post.title}}</h5>
+              <div class="mb-1 text-muted">{{post.createdDate}}</div>
+              <p class="card-text mb-auto text-secondary">{{post.description}}</p>
+              <a  class="stretched-link" routerLink="{{post._id}}">Đọc tiếp >></a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4" data-aos="fade-down-left">
+      <!-- Search Widget -->
+
+      <div class="card ">
+        <h5 class="card-header">Tìm Kiếm</h5>
+        <div class="card-body">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-append">
+              <button class="btn btn-secondary" type="button">Đi!</button>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories Widget -->
+      <div class="card my-4">
+        <h5 class="card-header">Các Gói Từ Thiện</h5>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6">
+              <ul class="list-unstyled mb-0">
+                <li>
+                  <a href="#">Hỗ Trợ Hoàn Cảnh Khó Khăn</a>
+                </li>
+                <li>
+                  <a href="#">Cơm Tình Thương</a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Side Widget -->
+
+    </div>
+  </div>
+  <div class="modal fade" id="ModalNews1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Tạo Bài Viết</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="postForm" >
+              <div class="form-group col-sm">
+                <input type="hidden"
+                class="form-control"
+                id="confirm"
+                formGroupName="confirm" name="confirm" class="form-control" value=""/>
+                <input type="hidden"
+                class="form-control"
+                id="likes"
+                formGroupName="likes" name="likes" class="form-control" value="0"/>
+                <div class="form-row justify-content-center">
+                  <div class="form-group col-sm-8">
+                    <label>Tiêu Đề</label>
+                    <input type="text"
+                    class="form-control"
+                    id="title"
+                    formControlName="title" type="text" placeholder="Tiêu đề" class="form-control" required />
+                  </div>
+                </div>
+                <div class="form-row justify-content-center">
+                  <div class="form-group col-sm-8">
+                    <label>Mô Tả</label>
+                    <input  class="form-control"
+                    id="description"
+                    formControlName="description" id="description" required class="form-control" placeholder="Mô tả"
+                       rows="3"/>
+                  </div>
+                </div>
+
+                <div class="form-row justify-content-center">
+                  <div class="form-group col-sm-8">
+                    <label>Nội Dung</label>
+                    <textarea  class="form-control"
+                    id="content"
+                    required
+                    formControlName="content" required id="content" class="form-control" placeholder="Nội dung"
+                       rows="6"></textarea>
+                  </div>
+                </div>
+
+                <div class="form-row justify-content-center">
+                  <div class="form-group col-sm-8">
+                    <label for="exampleFormControlFile1">Chọn file Hình<br>
+                     </label>
+                    <input  class="form-control"
+                    id="description"
+                    required
+                     type="file" (change)="onFileSelected($event)"   class="form-control-file" id="exampleFormControlFile1">
+                    <button (click)="uploadImage(postForm.value)" class="btn btn-primary">Tai Hinh</button>
+                  </div>
+                  <input type="hidden" formControlName="imageUrl" value={{this.filePath}}/>
+                </div>
+                <div class="form-row justify-content-center">
+                  <div class="form-group col-sm-8">
+                    <img [src]="imgSrc" width="350px" height="250px" />
+                  </div>
+
+                </div>
+              </div>
+
+          </form>
+
+          <pre>{{ postForm.value | json }}</pre>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" (click)="onSubmit(postForm)" class="btn btn-primary">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
